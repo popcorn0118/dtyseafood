@@ -17,7 +17,8 @@ define( 'CHILD_THEME_ASTRA_CHILD_VERSION', '1.0.0' );
  * Enqueue styles
  */
 function child_enqueue_styles() {
-	wp_enqueue_style( 'slick-css', get_stylesheet_directory_uri() . '/assets/css/slick.css', array(), CHILD_THEME_ASTRA_CHILD_VERSION );
+	wp_enqueue_style('chiron-go-round-tc', get_stylesheet_directory_uri() . '/assets/fonts/chiron-go-round-tc/css/vf.css', [], '1.009');
+	// wp_enqueue_style( 'slick-css', get_stylesheet_directory_uri() . '/assets/css/slick.css', array(), CHILD_THEME_ASTRA_CHILD_VERSION );
 	wp_enqueue_style( 'astra-child-theme-css', get_stylesheet_directory_uri() . '/style.css', array('astra-theme-css'), CHILD_THEME_ASTRA_CHILD_VERSION, 'all' );
 	
 	wp_enqueue_script( 'slick-js', get_stylesheet_directory_uri() . '/assets/js/slick.min.js', array(), '', true );
