@@ -79,6 +79,13 @@
   ),
   'wp-user-roles' => 
   array (
+    0 => 'administrator',
+    1 => 'editor',
+    2 => 'author',
+    3 => 'contributor',
+    4 => 'subscriber',
+    5 => 'customer',
+    6 => 'shop_manager',
   ),
   'enabled-lazy-load' => '0',
   'use-lazy-load-native' => '0',
