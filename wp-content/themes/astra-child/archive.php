@@ -6,15 +6,6 @@
 
 get_header();
 
-/** ─────────────────────────────────────────────────────────
- * 小工具：將 ACF 圖片欄位值（ID / array / URL）解析為 URL
- * ───────────────────────────────────────────────────────── */
-$resolve_img_url = function ($src) {
-  if (!$src) return '';
-  if (is_array($src))       return $src['url'] ?? '';
-  if (is_numeric($src))     return wp_get_attachment_image_url($src, 'full') ?: '';
-  return esc_url_raw($src);
-};
 
 /** ─────────────────────────────────────────────────────────
  * 基本物件與 post_type 判定（先決定 post_type，後面才用得到）
@@ -38,27 +29,40 @@ if (is_post_type_archive()) {
  * 對齊 page-list.php 的代稱（slug）與 taxonomy 設定
  * ───────────────────────────────────────────────────────── */
 $slug_map = [
-  'post' => 'article',
-  'case' => 'cases',
+  'post' => 'news',
+  // 'case' => 'cases',
 ];
 $slug = $slug_map[$post_type] ?? sanitize_html_class($post_type);
 
 $tax_map = [
   'post' => ['tax_cat' => 'category',  'tax_tag' => 'post_tag'],
-  'case' => ['tax_cat' => 'case-type', 'tax_tag' => 'case-tag'],
+  // 'case' => ['tax_cat' => 'case-type', 'tax_tag' => 'case-tag'],
 ];
 $cfg_tax = $tax_map[$post_type] ?? $tax_map['post'];
 
 /** ─────────────────────────────────────────────────────────
- * Banner：優先用 Term ACF 的 img_bg；沒有就回退到同代稱 Page 的 img_bg
+ * 取得精選圖
  * ───────────────────────────────────────────────────────── */
-$bg_url = '';
-if ($qo && isset($qo->taxonomy, $qo->term_id)) {
-  $bg_url = $resolve_img_url(get_field('img_bg', $qo));
+
+// 取得目前 archive 的 post_type（可能是字串或陣列）
+$post_type = get_query_var('post_type');
+if ( empty($post_type) ) {
+  $post_type = get_post_type(); // fallback
 }
-if (!$bg_url && ($p = get_page_by_path($slug))) {
-  $bg_url = $resolve_img_url(get_field('img_bg', $p->ID));
+if ( is_array($post_type) ) {
+  $post_type = reset($post_type);
 }
+$post_type = $post_type ?: 'post';
+
+// 找到對應頁面（用 slug 找 page）
+$page_slug = $slug_map[$post_type] ?? '';
+$slug_page = $page_slug ? get_page_by_path($page_slug) : null;
+
+// 背景圖：抓該頁面的精選圖
+$featured_image_url = ($slug_page)
+  ? get_the_post_thumbnail_url($slug_page->ID, 'full')
+  : '';
+
 
 /** ─────────────────────────────────────────────────────────
  * Archive Title 與前綴（分類 / 標籤）
@@ -109,10 +113,8 @@ $archive_class_str = implode(' ', array_unique($archive_classes));
 $slug_page = get_page_by_path($slug);
 ?>
 
-<section class="page-hero" <?php echo $bg_url ? 'style="background-image:url(' . esc_url($bg_url) . ')"' : ''; ?>>
+<section class="page-hero" <?php echo $featured_image_url ? 'style="background-image:url(' . esc_url( $featured_image_url ) . ')"' : ''; ?>>
   <div class="ph-container">
-    <h1 class="page-title"><?php echo esc_html($prefix . $archive_title); ?></h1>
-
     <h4 class="page-subtitle">
       <?php if ($slug_page): ?>
         <a href="<?php echo esc_url(get_permalink($slug_page->ID)); ?>">
@@ -120,8 +122,10 @@ $slug_page = get_page_by_path($slug);
         </a>
       <?php endif; ?>
     </h4>
+    <h1 class="page-title"><?php echo esc_html($prefix . $archive_title); ?></h1>
   </div>
 </section>
+
 
 <main class="page-main list-<?php echo esc_attr($slug); ?> <?php echo esc_attr($archive_class_str); ?>">
   <div class="ph-container list-layout">
