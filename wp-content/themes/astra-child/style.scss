@@ -1018,7 +1018,6 @@ body.search {
     }
     .ast-container {
       position: relative;
-      border-bottom: 1px solid $primary;
       padding: 0 0 40px 0;
     }
   }
@@ -1086,5 +1085,168 @@ body.search {
     }
   }
 }
+
+
+body {
+  //商品列表
+  &.post-type-archive-product, &.tax-product_cat, &.tax-product_tag {
+    #content {
+      padding-left: 24px;
+      padding-right: 24px;
+      .ast-container {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        @media (max-width: 921px) {
+          flex-direction: column;
+          flex-wrap: wrap;
+        }
+        #primary {
+          border-right: 0px;
+          .ast-shop-toolbar-container {
+            margin-bottom: 15px;
+            @media (max-width: 544px) {
+              //篩選器手機板會浮在下方殘留
+              display: none;
+            }
+          }
+          .products {
+            > li {
+              .astra-shop-summary-wrap {
+                margin-top: 5px;
+              }
+              .woocommerce-loop-product__title {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+        #secondary {
+          border-left: 0px;
+          // position: relative !important;
+          top: 0 !important;
+          margin-top: 0;
+          .wp-block-heading {
+            margin-bottom: 3.8em;
+          }
+          h2.wp-block-heading {
+            margin-bottom: 24px;
+          }
+          .wp-block-search__inside-wrapper  {
+            outline: 0;
+            border: 0;
+            
+            .wp-block-search__input {
+              border: 1px solid #BEBEBE;
+              background-color: transparent;
+              height: 52px;
+            }
+            .wp-block-search__button {
+              background-color: $primary;
+              border: 0;
+              height: 52px;
+            }
+          }
+          .wc-block-product-categories-list {
+            .wc-block-product-categories-list-item {
+              padding-left: 0;
+              margin-bottom: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+ 
+  //商品單頁
+  &.single-product {
+    #main {
+      .summary {
+        .woocommerce-product-details__short-description {
+          padding: 16px 0;
+        }
+        .cart {
+          border-top: 1px solid #BEBEBE;
+          border-bottom: 1px solid #BEBEBE;
+          padding-top: 32px;
+          padding-bottom: 32px;
+          display: flex;
+          align-items: center;
+        }
+        .quantity {
+          margin-bottom: 0;
+          .minus, .plus, .qty {
+            border: 1px solid $primary;
+          }
+          .minus, .plus {
+            color: #fff;
+            background-color: $primary;
+          }
+          .minus {
+            border-radius: 4px 0 0 4px;
+          }
+          .plus {
+            border-radius: 0 4px 4px 0;
+          }
+          .qty {
+            min-height: 50px;
+          }
+        }
+        .single_add_to_cart_button {
+          background-color: $primary;
+          border-radius: 4px;
+          border: 0;
+          min-width: 158px;
+          margin-bottom: 0;
+          &:hover {
+            background-color: rgba(#254977, 0.75);
+          }
+        }
+        .product_meta {
+          padding-top: 32px;
+          border-top: 0;
+          * {
+            color: #000;
+            font-weight: 400;
+            a:hover {
+              color: $primary;
+            }
+          }
+        }
+      }
+    }
+    //相關商品
+    .related.products {
+      .products {
+        > li {
+          .astra-shop-summary-wrap {
+            margin-top: 5px;
+          }
+          .woocommerce-loop-product__title {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+  
+}
+
+.woocommerce-pagination {
+  margin-bottom: 50px;
+  ul.page-numbers {
+    > li {
+      border: 0 !important;
+      .page-numbers {
+        color: $primary;
+        border-radius: 4px;
+        &.current, &:hover {
+          background-color: $primary;
+        }
+      }
+    }
+  }
+}
+
+
 
 	
