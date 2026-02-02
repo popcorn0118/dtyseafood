@@ -143,6 +143,100 @@ button{
     padding-left: 25px;
   }
 }
+
+// + - 商品數項 input[type="number"]
+.woocommerce-js #main {
+  .quantity {
+    margin-bottom: 0;
+    .minus, .plus, .qty {
+      border: 1px solid $primary;
+    }
+    .minus, .plus {
+      color: #fff !important;
+      background-color: $primary;
+    }
+    .minus {
+      border-radius: 4px 0 0 4px;
+    }
+    .plus {
+      border-radius: 0 4px 4px 0;
+    }
+    .qty {
+      min-height: 50px;
+    }
+  }
+}
+
+  $check-color: $primary;
+  $check-size: 20px;
+  input[type="radio"], input[type="checkbox"] {
+    display: inline-block !important;
+    min-width: unset;
+    appearance: none;
+    flex-shrink: 0;
+    -webkit-appearance: none;
+    width: $check-size;
+    height: $check-size;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    vertical-align: middle;
+    margin: 0;
+    border: 1px solid #BEBEBE;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  input[type="checkbox"] {
+    
+    border-radius: 2px !important;
+    &:checked {
+      background-color: $check-color !important;
+      border-color: $check-color;
+      &::after {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 3px;
+        width: 5px;
+        height: 10px;
+        border: solid #fff;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+    }
+    &.disabled {
+      opacity:0.3;
+      + .wpcf7-list-item-label {
+        opacity:0.3;
+      }
+    }
+  }
+  input[type="radio"] {
+    
+    
+    border-radius: 100% !important;
+    &:checked {
+      border-color: $check-color;
+      background-color: transparent;
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 12px;
+        height: 12px;
+        background-color: $check-color;
+        transform: translate(-50%, -50%);
+        border-radius: 100%;
+      }
+    }
+    &.disabled {
+      opacity:0.3;
+      + .wpcf7-list-item-label {
+        opacity:0.3;
+      }
+    }
+  }
+
 //slick
 // .slick-track {
 //   display: flex;
@@ -1172,25 +1266,6 @@ body {
           display: flex;
           align-items: center;
         }
-        .quantity {
-          margin-bottom: 0;
-          .minus, .plus, .qty {
-            border: 1px solid $primary;
-          }
-          .minus, .plus {
-            color: #fff;
-            background-color: $primary;
-          }
-          .minus {
-            border-radius: 4px 0 0 4px;
-          }
-          .plus {
-            border-radius: 0 4px 4px 0;
-          }
-          .qty {
-            min-height: 50px;
-          }
-        }
         .single_add_to_cart_button {
           background-color: $primary;
           border-radius: 4px;
@@ -1247,6 +1322,345 @@ body {
   }
 }
 
+/*woocommerce(購物車、結帳、會員)*/
+body {
+  &.woocommerce-cart, &.woocommerce-checkout, &.woocommerce-account {
+    #main, #content {
+      a {
+        color: $text-d !important;
+        &:hover {
+          color: $primary !important;
+        }
+      }
+      .button {
+        color: #FEFEFE !important;
+        &:hover {
+          color: #FEFEFE !important;
+        }
+      } 
+    }
+    #main {
+      padding-top: 120px;
+      padding-bottom: 95px;
+      
+    }
+    // cart
+    .entry-title {
+      color: $primary;
+    }
+    
+    .quantity .plus {
+      margin-right: 0;
+    }
+    .remove {
+      color: #BEBEBE;
+      &::before {
+        border: 1px solid #BEBEBE;
+
+      }
+    }
+    .shop_table {
+      border: 0;
+    }
+    #add_payment_method table.cart td.actions .coupon .input-text,
+    table.cart td.actions .coupon .input-text,
+    table.cart td.actions .coupon .input-text {
+      min-height: 53px;
+    }
+    .cart.woocommerce-cart-form__contents th,
+    .cart-collaterals .cart_totals > h2 {
+      background-color: $primary;
+      color: #FEFEFE;
+    }
+    .cart-collaterals .cart_totals > h2 {
+      font-size: 20px;
+    }
+    td.actions {
+      border-top: 1px solid $primary;
+    }
+    .wc-proceed-to-checkout a.checkout-button {
+      font-size: 18px;
+      padding: 10px;
+      color: #FEFEFE !important;
+      &:hover {
+        color: #FEFEFE !important;
+      }
+    }
+    .wc-backward {
+      color: #FEFEFE !important;
+      &:hover {
+        color: #FEFEFE !important;
+      }
+    }
+
+    // checkout
+    input.input-text {
+      min-height: 53px;
+    }
+    #payment ul.payment_methods .wc_payment_method  {
+      label {
+        color: $text !important;
+        vertical-align: middle;
+      }
+      input {
+        margin: 0 1em 1em 0;
+        &:checked {
+          margin-bottom: 0;
+        }
+      }
+      
+    }
+    .woocommerce-checkout-review-order-table, .woocommerce-table--order-details {
+      overflow: hidden;
+      thead th {
+        background-color: $primary;
+        color: #FEFEFE;
+      }
+    }
+    ul.woocommerce-order-overview {
+      border: 1px solid $primary;
+      border-radius: 4px;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 30px 30px !important;
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @media (max-width: 544px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+      li {
+        margin: 0 !important;
+        letter-spacing: 1px;
+        strong {
+          font-weight: 600 !important;
+          color: $text !important;
+        }
+      }
+      &::after, &::before {
+        display: none;
+      }
+    }
+  }
+
+  //my-account
+  &.woocommerce-account {
+    #content {
+      padding-bottom: 95px;
+      .woocommerce  {
+        * {
+          color: $text-d;
+        }
+        
+        .woocommerce-MyAccount-navigation {
+          ul {
+            li.woocommerce-MyAccount-navigation-link {
+              border-color: $primary;
+              &.is-active {
+                a {
+                  background-color: $primary;
+                  color: #FEFEFE !important;
+                }
+              }
+              &.woocommerce-MyAccount-navigation-link--downloads {
+                display: none;
+              }
+            }
+          }
+        }
+        .woocommerce-MyAccount-content {
+          width: 66%;
+          @media (max-width: 921px) {
+            width: 100%;
+            margin-top: 30px;
+          }
+          h2 {
+            color: $primary;
+          }
+          label {
+            font-size: 20px;
+            color: $text-d;
+            font-weight: 400;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            .required {
+              color: #FF0000;
+              font-size: 24px;
+              font-weight: 500;
+              line-height: 0;
+            }
+          }
+          .input-text  {
+            min-height: 57px;
+            border: 0;
+          }
+          .account_display_name_description {
+            margin-top: 10px;
+            display: inline-block;
+          }
+          fieldset legend {
+            font-size: 24px;
+            padding: 40px 0 30px 0;
+            margin-top: 20px;
+            border-bottom: 1px solid #000000;
+          }
+
+          //訂單(列表+詳情頁)
+          .woocommerce-orders-table, .woocommerce-table--order-details {
+            border-left: 1px solid #434343;
+            border-bottom: 1px solid #434343;
+            td, th {
+              * {
+                font-size: 18px;
+                @media (max-width: 921px) {
+                  font-size: 16px;
+                }
+              }
+             
+            }
+            thead th {
+              background-color: $primary;
+              color: #FEFEFE;
+              * {
+                color: #FEFEFE;
+                font-size: 20px;
+                font-weight: 400;
+                @media (max-width: 921px) {
+                  font-size: 18px;
+                }
+              }
+            }
+            tbody, tfoot {
+              td, th {
+                border-top: 1px solid #434343 !important;
+                border-right: 1px solid #434343;
+              }
+            }
+            .woocommerce-orders-table__cell-order-actions {
+              display: table-cell;
+              @media (max-width: 921px) {
+                display: block;
+              }
+            }
+          }
+          //訂單(詳情頁)
+          .woocommerce-table--order-details {
+            thead th {
+              font-size: 24px;
+            }
+          }
+          .woocommerce-customer-details {
+            .woocommerce-column__title {
+              color: #fff;
+              background-color: $primary;
+              font-size: 24px;
+            }
+            address {
+              border: 1px solid #434343;
+            }
+          }
+          //地址
+          .woocommerce-Addresses {
+            .woocommerce-Address-title {
+              &::before, &::after {
+                display: none;
+              }
+              background-color: $primary;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 20px;
+              border-color: #434343;
+              h2 {
+                font-size: 24px;
+                color: #fff;
+                margin-bottom: 0;
+              }
+              a {
+                font-size: 0;
+                width: 43px;
+                height: 30px;
+                &::before {
+                  content: '編輯';
+                  font-size: 18px;
+                  font-weight: 400;
+                  color: #fff !important;
+                }
+                &:hover {
+                  &::before {
+                    opacity: 0.5;
+                  }
+                }
+              }
+            }
+            address {
+              font-size: 18px;
+              border: 1px solid #434343;
+              font-style: normal;
+            }
+          }
+          .woocommerce-address-fields {
+            .button {
+              margin: 30px 0 0 3px;
+            }
+          }
+        }
+      }
+    }
 
 
-	
+    //登入註冊
+    #customer_login {
+        h2 {
+          font-size: 32px;
+          font-weight: 600;
+          color: $primary !important;
+        }
+      }
+      .woocommerce-ResetPassword.lost_reset_password,.woocommerce-form-login, .woocommerce-form-register {
+        label {
+          font-size: 20px;
+          color: $text-d;
+          font-weight: 400;
+          margin-top: 25px;
+          margin-bottom: 15px;
+          .required {
+            color: #FF0000 !important;
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 0;
+          }
+        }
+        .input-text {
+          min-height: 57px;
+        }
+        .woocommerce-form__input.woocommerce-form__input-checkbox {
+          margin-bottom: 4px;
+          background-color: #fff;
+        }
+        .woocommerce-LostPassword.lost_password {
+          padding-top: 5px;
+          > a {
+            color: $primary !important;
+            font-size: 16px;
+            &:hover {
+              color: #254977b3 !important;
+            }
+          }
+        }
+        label.woocommerce-form-login__rememberme {
+          margin: 10px 0 18px 0;
+        }
+        .woocommerce-Input[ type="email" ] {
+          margin-bottom: 10px;
+        }
+        .woocommerce-Button {
+          margin-top: 20px;
+        }
+      }
+    
+  }
+
+  
+}
