@@ -1244,6 +1244,12 @@ body {
             .wc-block-product-categories-list-item {
               padding-left: 0;
               margin-bottom: 16px;
+              a {
+                &:hover {
+                  color: $text-d;
+                  opacity: 0.75;
+                }
+              }
             }
           }
         }
