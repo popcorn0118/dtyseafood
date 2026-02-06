@@ -472,6 +472,10 @@ header#masthead {
       height: 104px;
       .home-product-categories__icon {
         width: 104px;
+        transition: 0.4s;
+        &:hover {
+          transform: scale(1.1);
+        }
       }
     }
     .home-product-categories__name {
